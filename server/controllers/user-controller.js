@@ -60,14 +60,14 @@ module.exports = {
   },
   // remove a book from `savedBooks`
   async deleteBook({ user, params }, res) {
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedBooks = await User.findOneAndDelete(
       { _id: user._id },
       { $pull: { savedBooks: { bookId: params.bookId } } },
       { new: true }
     );
-    if (!updatedUser) {
-      return res.status(404).json({ message: "Couldn't find user with this id!" });
+    if (!updatedBooks) {
+      return res.status(404).json({ message: "Couldn't find book with this id!" });
     }
-    return res.json(updatedUser);
+    return res.json(updatedBooks);
   },
 };

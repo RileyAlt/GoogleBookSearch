@@ -16,12 +16,12 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("id_token");
+  const token = localStorage.getItem('id_token');
 
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
@@ -34,22 +34,19 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <>
-          <Navbar />
-          <Switch>
-            <Route path="/" element={SearchBooks} />
-            <Route path="/saved" element={SavedBooks} />
-            <Route
-              path="*"
-              element={<h1 className="display-2">Wrong page!</h1>}
-            />
-          </Switch>
-        </>
-      </Router>
-      <SearchBooks />
-    </ApolloProvider>
+    <Router>
+    <>
+      <Navbar />
+      <Switch>
+        <Route exact path='/' component={SearchBooks} />
+        <Route exact path='/saved' component={SavedBooks} />
+        <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />
+      </Switch>
+    </>
+  </Router>
+  </ApolloProvider>
   );
 }
 
 export default App;
+
